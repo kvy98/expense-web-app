@@ -1,6 +1,10 @@
 import React, { useState, Component } from "react";
+import styled from "styled-components";
 import "./new-expense.scss";
-
+const FormStyle = styled.form`
+  height: ${(props) => props.height};
+  opacity: ${(props) => props.opacity};
+`;
 class Form extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +14,7 @@ class Form extends Component {
       title: "",
       date: new Date(),
       amount: "",
-      height: `${clientHeight}px`,
+      height: clientHeight,
       firstLoad: true,
       opacity: 0,
     };
@@ -18,10 +22,10 @@ class Form extends Component {
   }
   componentDidMount() {
     const { clientHeight } = document.querySelector(".new-expense form");
-    this.setState({ firstLoad: false });
     setTimeout(() => {
-      this.setState({ height: `${clientHeight}px`, opacity: 1 });
-    }, 100);
+      this.setState({ height: clientHeight, opacity: 1 });
+    }, 0);
+    this.setState({ firstLoad: false });
   }
 
   handleOnchange(e) {
@@ -33,14 +37,14 @@ class Form extends Component {
   }
   render() {
     const { handleToggleForm, handleAddExpense } = this.props;
-    const { title, date, amount, height, firstLoad, opacity } = this.state;
-    const style = {};
-    if (!firstLoad) {
-      style.height = height;
-      style.opacity = opacity;
-    }
+    const { title, date, amount, firstLoad } = this.state;
+    let { height, opacity } = this.state;
+    if (firstLoad) {
+      height = "auto";
+      opacity = 0;
+    } else height = height + "px";
     return (
-      <form className="form" style={style}>
+      <FormStyle height={height} opacity={opacity} className="form">
         <div className="form__group">
           <label className="form__label" htmlFor="title">
             Title
@@ -111,7 +115,7 @@ class Form extends Component {
             Add Expense
           </button>
         </div>
-      </form>
+      </FormStyle>
     );
   }
 }

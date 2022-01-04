@@ -1,6 +1,9 @@
 import "./chart.scss";
 import React, { Component } from "react";
-
+import styled from "styled-components";
+const ChartFill = styled.div`
+  transform: scaleY(${(props) => props.fillValue});
+`;
 class ChartBar extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +18,13 @@ class ChartBar extends Component {
     const { label, value } = this.props;
     const fillValue = value / 100;
     const { firstLoad } = this.state;
-    const style = {
-      transform: `scaleY(${firstLoad ? 0 : fillValue})`,
-    };
     return (
       <div className="chart__bar">
         <div className="chart__bar--outline">
-          <div className="chart__bar--fill" style={style}></div>
+          <ChartFill
+            className="chart__bar--fill"
+            fillValue={firstLoad ? 0 : fillValue}
+          />
         </div>
         <p className="chart__bar__title">{label}</p>
       </div>

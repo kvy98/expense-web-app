@@ -1,0 +1,52 @@
+.new-expense {
+  border-radius: 2rem;
+  background-color: #0ca678;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  color: #fff;
+  overflow: hidden;
+  %btn {
+    padding: 1.5rem 2rem;
+    outline: none;
+    border: none;
+    background-color: #099268;
+    color: inherit;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 1.8rem;
+  }
+  & > button {
+    @extend %btn;
+  }
+}
+.form {
+  flex-basis: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  transition: height 0.8s, opacity 0.6s 0.2s;
+  & > *:last-child {
+    margin-left: auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+  &__group {
+    flex-basis: calc(50% - 2rem);
+  }
+  &__label {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.6rem;
+  }
+  button {
+    @extend %btn;
+  }
+}

@@ -1,0 +1,53 @@
+.list-expense {
+  margin-top: 1rem;
+  background-color: #0ca678;
+  min-height: 50vh;
+  border-radius: 2rem;
+  padding: 4rem;
+  color: #fff;
+  font-size: 1.6rem;
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    select {
+      padding: 1rem 3rem;
+    }
+  }
+  &__item {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    font-size: 2rem;
+    align-items: center;
+    background-color: #099268;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    &__title {
+      flex: 1;
+    }
+    &__amount {
+      font-size: 2.4rem;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      background-color: #087f5b;
+    }
+    &__date-group {
+      background-color: #087f5b;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem 3rem;
+    }
+    &__date {
+      font-size: 2.4rem;
+    }
+    &__month {
+      font-size: 1.8rem;
+    }
+    &__year {
+      color: #dee2e6;
+      font-size: 1.4rem;
+    }
+  }
+}

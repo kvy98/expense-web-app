@@ -1,14 +1,21 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useRef, createRef } from "react";
 import styled from "styled-components";
 import "./new-expense.scss";
+// const FormStyle = React.forwardRef((props, ref) => {
+
+// });
+const FormFragment = React.forwardRef((props, ref) => (
+  <FormStyle ref={ref} {...props} />
+));
 const FormStyle = styled.form`
   height: ${(props) => props.height};
   opacity: ${(props) => props.opacity};
 `;
+// return <FormStyle {...props} />;
 class Form extends Component {
   constructor(props) {
     super(props);
-    const { clientHeight } = document.querySelector(".new-expense");
+    const { clientHeight } = props.parentRef.current;
     this.minHeight = clientHeight;
     this.state = {
       title: "",
@@ -19,9 +26,10 @@ class Form extends Component {
       opacity: 0,
     };
     this.handleOnchange = this.handleOnchange.bind(this);
+    this.ref = createRef();
   }
   componentDidMount() {
-    const { clientHeight } = document.querySelector(".new-expense form");
+    const { clientHeight } = this.ref.current;
     setTimeout(() => {
       this.setState({ height: clientHeight, opacity: 1 });
     }, 0);
@@ -44,7 +52,12 @@ class Form extends Component {
       opacity = 0;
     } else height = height + "px";
     return (
-      <FormStyle height={height} opacity={opacity} className="form">
+      <FormFragment
+        height={height}
+        opacity={opacity}
+        className="form"
+        ref={this.ref}
+      >
         <div className="form__group">
           <label className="form__label" htmlFor="title">
             Title
@@ -115,7 +128,7 @@ class Form extends Component {
             Add Expense
           </button>
         </div>
-      </FormStyle>
+      </FormFragment>
     );
   }
 }
@@ -123,15 +136,17 @@ class Form extends Component {
 const NewExpense = (props) => {
   const { handleAddExpense } = props;
   const [isToggleForm, setIsToggleForm] = useState(false);
+  const ref = useRef();
   function handleToggleForm() {
     setIsToggleForm((prevState) => !prevState);
   }
   return (
-    <div className="new-expense">
+    <div className="new-expense" ref={ref}>
       {isToggleForm ? (
         <Form
           handleAddExpense={handleAddExpense}
           handleToggleForm={handleToggleForm}
+          parentRef={ref}
         />
       ) : (
         <button className="btn" onClick={handleToggleForm}>
